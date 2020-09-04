@@ -6,24 +6,20 @@ import ReactPaginate from 'react-paginate';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
 
 const styles = {
   root: {
     flexGrow: 1,
   },
+  paper: {
+    margin: '0 auto',
+    padding: 20,
+  }
 };
 
 function App() {
-
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = {
-  //     offset: 0,
-  //     data: [],
-  //     perPage: 6,
-  //     currentPage: 0,
-  //   };
-  // }
 
   const [data, setData] = useState({ data: []});
   const [offset, setOffset] = useState(0);
@@ -32,13 +28,10 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [galleryData, setGalleryData] = useState();
 
-  // componentDidMount = () => {
-  //   this.fetchData()
-  // }
   
   useEffect(() => {
     fetchData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [offset]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchData = async () => {
     const API_KEY = process.env.REACT_APP_CONSUMER_KEY;
@@ -50,12 +43,11 @@ function App() {
     paginate(photos, response.data);
   }
 
-
   const paginate = ((arr, data) => {
     const galleryData = arr.map(photo =>
               <React.Fragment>
                 <div>
-                  <img src={photo.image_url} alt="" />
+                  <img src={photo.image_url} onClick={() => handleImageClick(photo.image_url)} alt={photo.name} />
                 </div>
               </React.Fragment>)
             
@@ -63,27 +55,8 @@ function App() {
 
             setPageCount(pageCount);
             setGalleryData(galleryData);
-            // this.setState({
-            //   pageCount: Math.ceil(data.photos.length / this.state.perPage),
-            //   galleryData,
-            //   data: data
-            // })
+
   });
-
-  //       const galleryData = slice.map(data =>
-  //         <React.Fragment>
-  //           <div onClick={this.handleImageClick}>
-  //             <img src={data.image_url} alt="" />
-  //           </div>
-  //         </React.Fragment>)
-
-  //       this.setState({
-  //         pageCount: Math.ceil(data.photos.length / this.state.perPage),
-  //         galleryData,
-  //         data: data
-  //       })
-  //     });
-  // }
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -92,24 +65,12 @@ function App() {
     setCurrentPage(selectedPage);
     setOffset(offset);
 
-    fetchData();
-
-
-    // this.setState({
-    //   currentPage: selectedPage,
-    //   offset: offset
-    // }, () => {
-    //   this.fetchData()
-    // });
-
   };
 
-  // handleImageClick = () => {
-  //   console.log("Photo click")
-  // }
+  const handleImageClick = (url) => {
+    console.log(url)
+  }
 
-  // render() {
-  //   console.log(this.state.data)
     return (
       <div className="App">
         <div>
@@ -122,9 +83,11 @@ function App() {
               </Toolbar>
             </AppBar>
           </div>
+          <Paper style={styles.paper} elevation={3}>
           <div className="container" >
             {galleryData}
           </div>
+          </Paper>
           <div className="justify">
             <ReactPaginate
               previousLabel={"Previous"}
@@ -136,6 +99,7 @@ function App() {
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}
               containerClassName={"pagination"}
+              subContainerClassName={'pages pagination'}
               activeClassName={"active"} />
           </div>
         </div>

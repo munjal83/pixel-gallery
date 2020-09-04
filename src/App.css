@@ -1,5 +1,5 @@
 .pagination {
-  margin: 15px auto;
+  margin: 25px auto;
   display: flex;
   list-style: none;
   outline: none;
@@ -11,7 +11,7 @@
 }
 .pagination > li > a{
   border: 1px solid #3c4c4e ;
-  padding: 10px 15px;
+  padding: 10px 20px;
   outline: none;
   cursor: pointer;
 }
