@@ -3,12 +3,6 @@ import './App.css';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate'
 
-// interface AppState {
-//   offset: number,
-//   data: any,
-//   perPage: number,
-//   currentPage: number.
-// }
 
 class App extends React.Component<{}, any> {
 
@@ -17,8 +11,8 @@ class App extends React.Component<{}, any> {
     this.state = {
       offset: 0,
       data: [],
-      perPage: 10,
-      currentPage: 0
+      perPage: 9,
+      currentPage: 0,
     };
   }
 
@@ -35,9 +29,11 @@ class App extends React.Component<{}, any> {
         console.log(data);
         const slice = data.photos.slice(this.state.offset, this.state.offset + this.state.perPage);
 
-        const galleryData = slice.map(data => <React.Fragment>
-          <p>{data.name}</p>
-          <img src={data.image_url} alt="" />
+        const galleryData = slice.map(data => 
+        <React.Fragment>
+          <div>
+            <img src={data.image_url} alt="" />
+          </div>
         </React.Fragment>)
 
         this.setState({
@@ -64,18 +60,22 @@ class App extends React.Component<{}, any> {
     return (
       <div className="App">
         <div>
-          {this.state.galleryData}
-          <ReactPaginate
-            previousLabel={"prev"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={this.state.pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={this.handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"} />
+          <div className="container">
+            {this.state.galleryData}
+          </div>
+          <div className="justify">
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={this.state.pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={this.handlePageClick}
+              containerClassName={"pagination"}
+              activeClassName={"active"} />
+          </div>
         </div>
       </div>
     );

@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import Gallery from 'react-photo-gallery';
 
-export default class Gallery extends React.Component {
+export default class PhotoGallery extends React.Component {
 	state = {
 		result: {
 			photos: [
@@ -15,9 +16,8 @@ export default class Gallery extends React.Component {
 					}
 				}
 			]
-		}
 	}
-
+}
 	componentDidMount() {
 		this.fetchData();
 	}
@@ -26,19 +26,27 @@ export default class Gallery extends React.Component {
 		const API_KEY = process.env.REACT_APP_CONSUMER_KEY;
 		const API_URL = 'https://api.500px.com/v1/photos?feature=popular&consumer_key=';
 		const response = await axios.get(`${API_URL}${API_KEY}`)
-			
+
 		this.setState({result: response.data});
 	}
 
 	render() {
-
-		return (
-			<ul>
-				<div>
-           			{this.state.result.photos.map((photo, index) => <div key={index}> <img src={photo.image_url} alt=""></img></div>)} 
-       			</div>
 	
-			</ul>
+		const imageUrl: any = [];
+		const photos = this.state.result.photos;
+
+		photos.forEach(element => {
+			let url = element.image_url;
+			imageUrl.push({
+				src: url,
+				width: 4,
+				height: 3,
+			});
+		});
+		return (
+			<div>
+				<Gallery photos={imageUrl} />
+			</div>
 		)
 	}
 }
