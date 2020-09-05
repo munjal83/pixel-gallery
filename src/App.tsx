@@ -1,109 +1,124 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import FullScreen from './components/FullScreen';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
     flexGrow: 1,
   },
+  paper: {
+    margin: '0 auto',
+    padding: 20,
+  }
 };
 
-class App extends React.Component<{}, any> {
+function App() {
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      offset: 0,
-      data: [],
-      perPage: 6,
-      currentPage: 0,
-    };
-  }
+  const [data, setData] = useState({ data: [] });
+  const [offset, setOffset] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const perPage = 12;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [galleryData, setGalleryData] = useState();
+  const [open, setOpen] = useState(false);
+  const [close, setClose] = useState(true);
+  const [selectedPhoto, setSelectedPhoto] = useState([]);
 
-  componentDidMount = () => {
-    this.fetchData()
-  }
-
-  fetchData = () => {
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]); 
+  const fetchData = async () => {
     const API_KEY = process.env.REACT_APP_CONSUMER_KEY;
-    const API_URL = 'https://api.500px.com/v1/photos?feature=popular&consumer_key=';
-    axios.get(`${API_URL}${API_KEY}`)
-      .then(res => {
-        const data = res.data;
-        const slice = data.photos.slice(this.state.offset, this.state.offset + this.state.perPage);
+    const feature = 'popular';
+    const rpp = 100;
+    const image_size = 600;
+    const API_URL = `https://api.500px.com/v1/photos?feature=${feature}&rpp=${rpp}&image_size=${image_size}&consumer_key=`;
+    const response = await axios.get(`${API_URL}${API_KEY}`);
+    const photos = response.data.photos.slice(offset, offset + perPage);
 
-        const galleryData = slice.map(data =>
-          <React.Fragment>
-            <div onClick={this.handleImageClick}>
-              <img src={data.image_url} alt="" />
-            </div>
-          </React.Fragment>)
-
-        this.setState({
-          pageCount: Math.ceil(data.photos.length / this.state.perPage),
-          galleryData,
-          data: data
-        })
-      });
+    setData(response.data);
+    paginate(photos, response.data);
   }
 
-  handlePageClick = (e) => {
+  const paginate = ((arr, data) => {
+    const galleryData = arr.map(photo =>
+      <React.Fragment>
+        <div>
+          <img src={photo.image_url} onClick={() => openFullScreen(photo)} alt={photo.name} />
+        </div>
+      </React.Fragment>)
+
+    const pageCount = Math.ceil(data.photos.length / perPage);
+
+    setPageCount(pageCount);
+    setGalleryData(galleryData);
+
+  });
+
+  const handlePageClick = (e) => {
     const selectedPage = e.selected;
-    const offset = selectedPage * this.state.perPage;
-
-    this.setState({
-      currentPage: selectedPage,
-      offset: offset
-    }, () => {
-      this.fetchData()
-    });
-
+    const offset = selectedPage * perPage;
+    setCurrentPage(selectedPage);
+    setOffset(offset);
   };
 
-  handleImageClick = () => {
-
+  const openFullScreen = (photo) => {
+    setOpen(true);
+    setSelectedPhoto(photo);
   }
 
-  render() {
-    console.log(this.state.data)
-    return (
-      <div className="App">
-        <div>
-          <div style={styles.root}>
-            <AppBar position="static" color="primary">
-              <Toolbar>
-                <Typography variant="title" color="inherit">
-                  Five Hundred Pixels
-                </Typography>
-              </Toolbar>
-            </AppBar>
-          </div>
-          <div className="container" >
-            {this.state.galleryData}
-          </div>
-          <div className="justify">
-            <ReactPaginate
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={this.state.pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={this.handlePageClick}
-              containerClassName={"pagination"}
-              activeClassName={"active"} />
-          </div>
+  const closeFullScreen = () => {
+    setClose(true);
+    setOpen(false);
+  }
+
+  return (
+    <div className="App">
+      <div>
+        <div style={styles.root}>
+          <AppBar position="static" color="primary">
+            <Toolbar>
+              <Typography variant="title" color="inherit">
+                Five Hundred Pixels
+              </Typography>
+            </Toolbar>
+          </AppBar>
         </div>
+        <Paper style={styles.paper} elevation={3}>
+          <div className="container" >
+            {galleryData}
+          </div>
+        </Paper>
+        <div className="justify">
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={'pages pagination'}
+            activeClassName={"active"} />
+        </div>
+        <FullScreen
+          open={open}
+          close={closeFullScreen}
+          photo={selectedPhoto}
+        />
+
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-
-export default App;
+export default withStyles(styles)(App);
