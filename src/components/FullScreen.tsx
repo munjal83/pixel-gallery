@@ -2,6 +2,7 @@ import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { withStyles } from '@material-ui/core/styles';
+import Photo from './Photo'
 
 const styles = {
     flex: {
@@ -14,8 +15,6 @@ const Transition = (props) => {
 }
 
 function FullScreen(props) {
-    console.log(props.data);
-    console.log(props.open);
     return (
         <div onClick={props.close}>
             <Dialog
@@ -24,7 +23,7 @@ function FullScreen(props) {
                 onClose={props.close}
                 TransitionComponent={Transition}
             >
-
+                <Photo selectedPhoto={props.photo} />
             </Dialog>
         </div>
     );

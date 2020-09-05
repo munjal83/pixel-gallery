@@ -24,20 +24,22 @@ function App() {
   const [data, setData] = useState({ data: [] });
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const perPage = 6;
+  const perPage = 12;
   const [currentPage, setCurrentPage] = useState(0);
   const [galleryData, setGalleryData] = useState();
   const [open, setOpen] = useState(false);
   const [close, setClose] = useState(true);
-
+  const [selectedPhoto, setSelectedPhoto] = useState([]);
 
   useEffect(() => {
     fetchData();
-  }, [offset]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [currentPage]); 
   const fetchData = async () => {
     const API_KEY = process.env.REACT_APP_CONSUMER_KEY;
-    const API_URL = 'https://api.500px.com/v1/photos?feature=popular&consumer_key=';
+    const feature = 'popular';
+    const rpp = 100;
+    const image_size = 600;
+    const API_URL = `https://api.500px.com/v1/photos?feature=${feature}&rpp=${rpp}&image_size=${image_size}&consumer_key=`;
     const response = await axios.get(`${API_URL}${API_KEY}`);
     const photos = response.data.photos.slice(offset, offset + perPage);
 
@@ -49,7 +51,7 @@ function App() {
     const galleryData = arr.map(photo =>
       <React.Fragment>
         <div>
-          <img src={photo.image_url} onClick={() => openFullScreen()} alt={photo.name} />
+          <img src={photo.image_url} onClick={() => openFullScreen(photo)} alt={photo.name} />
         </div>
       </React.Fragment>)
 
@@ -63,14 +65,13 @@ function App() {
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     const offset = selectedPage * perPage;
-
     setCurrentPage(selectedPage);
     setOffset(offset);
-
   };
 
-  const openFullScreen = () => {
+  const openFullScreen = (photo) => {
     setOpen(true);
+    setSelectedPhoto(photo);
   }
 
   const closeFullScreen = () => {
@@ -86,7 +87,7 @@ function App() {
             <Toolbar>
               <Typography variant="title" color="inherit">
                 Five Hundred Pixels
-                </Typography>
+              </Typography>
             </Toolbar>
           </AppBar>
         </div>
@@ -112,7 +113,7 @@ function App() {
         <FullScreen
           open={open}
           close={closeFullScreen}
-          data={data}
+          photo={selectedPhoto}
         />
 
       </div>
