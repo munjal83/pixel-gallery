@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App matches the snapshot 1`] = `
+<div
+  className="App"
+>
+  <div>
+    <div>
+      <div
+        style={
+          Object {
+            "flexGrow": 1,
+          }
+        }
+      >
+        <header
+          className="MuiPaper-root-87 MuiPaper-elevation4-93 MuiAppBar-root-79 MuiAppBar-positionStatic-83 MuiAppBar-colorPrimary-85"
+        >
+          <div
+            className="MuiToolbar-root-114 MuiToolbar-regular-116 MuiToolbar-gutters-115"
+          >
+            <h2
+              className="MuiTypography-root-118 MuiTypography-title-124 MuiTypography-colorInherit-137"
+            >
+              Five Hundred Pixels
+            </h2>
+          </div>
+        </header>
+      </div>
+      <div
+        className="MuiPaper-root-87 MuiPaper-elevation3-92 MuiPaper-rounded-88"
+        style={
+          Object {
+            "margin": "0 auto",
+            "padding": 20,
+          }
+        }
+      >
+        <div
+          className="container"
+          data-testid="photo"
+        />
+      </div>
+      <div
+        className="justify"
+      >
+        <ul
+          className="pagination"
+        >
+          <li
+            className="previous disabled"
+          >
+            <a
+              aria-disabled="true"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              tabIndex="0"
+            >
+              Previous
+            </a>
+          </li>
+          <li
+            className="next"
+          >
+            <a
+              aria-disabled="false"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              tabIndex="0"
+            >
+              Next
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div
+        data-testid="dialog"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

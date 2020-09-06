@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Photo matches the snapshot 1`] = `
+<div
+  className="container"
+>
+  <ul
+    className="MuiGridList-root-48"
+    style={
+      Object {
+        "height": "100vh",
+        "margin": -2,
+        "padding": "0 auto",
+        "width": "100vw",
+      }
+    }
+  >
+    <li
+      className="MuiGridListTile-root-49"
+      style={
+        Object {
+          "height": 604,
+          "padding": 2,
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="MuiGridListTile-tile-50"
+      >
+        <img
+          alt=""
+          src=""
+        />
+        <div
+          className="MuiGridListTileBar-root-53 MuiGridListTileBar-titlePositionTop-55"
+          style={
+            Object {
+              "background": "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+            }
+          }
+        >
+          <div
+            className="MuiGridListTileBar-titleWrap-57"
+          >
+            <div
+              className="MuiGridListTileBar-title-60"
+            >
+              Views: 999
+            </div>
+          </div>
+        </div>
+        <div
+          className="MuiGridListTileBar-root-53 MuiGridListTileBar-titlePositionBottom-54 MuiGridListTileBar-rootSubtitle-56"
+        >
+          <div
+            className="MuiGridListTileBar-titleWrap-57"
+          >
+            <div
+              className="MuiGridListTileBar-title-60"
+            />
+            <div
+              className="MuiGridListTileBar-subtitle-61"
+            >
+              <span>
+                by: 
+                john doe
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li
+      className="MuiGridListTile-root-49"
+      style={
+        Object {
+          "height": "auto",
+          "padding": 2,
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="MuiGridListTile-tile-50"
+      >
+        <h1
+          className="MuiTypography-root-64 MuiTypography-display1-68 MuiTypography-gutterBottom-81"
+        />
+      </div>
+    </li>
+  </ul>
+</div>
+`;
