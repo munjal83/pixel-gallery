@@ -16,7 +16,7 @@ const Transition = (props) => {
 
 function FullScreen(props) {
     return (
-        <div onClick={props.close}>
+        <div data-testid="dialog" onClick={props.close}>
             <Dialog
                 fullScreen
                 open={props.open}
