@@ -1,44 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pixel-Gallery
 
-## Available Scripts
+This is a simple React Photo Gallery application that fetches the data through `500px` API. The data fetched is from the `popular` category. 
 
-In the project directory, you can run:
+The Photos are presented in a grid format which then uses Pagination to display on different pages which users can click through.
 
-### `npm start`
+When the image is clicked it opens in a fullscreen version along with some data like `name`, `description`, `photographer name` along with the number of `views` the image currently has. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies and modules
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The Application uses `React` and `TypeScript` on the front end while it fetches the data from an external `API` using `axios`. The `get` request requires certain fields like `feature`, `image_size`, `rpp` and `consumer_key` which can be passed through a `.env` file.
 
-### `npm test`
+The pagination is implemented using `react-paginate`. The grid format is done using pure `css` while the styling of the `PhotoGrid`, `FullScreen` and `Photo` components is done using components from `Material-UI`. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## To run the App
 
-### `npm run build`
+`npm run start`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Runs the app in the development mode.
+You can find the app at http://localhost:3000 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## To build the App
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm run build`
 
-### `npm run eject`
+Builds and packages the app in the `build` folder
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## To run the tests
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm test`
