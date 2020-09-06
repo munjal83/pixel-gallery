@@ -1,5 +1,7 @@
 # Pixel-Gallery
 
+![Pixel Gallery](/public/images/image.gif)
+
 This is a React Photo Gallery application that fetches the data through [500px](https://github.com/500px/legacy-api-documentation) API. The data fetched is from the `popular` category. 
 
 The Photos are presented in a responsive `grid` format which uses `Pagination` to display page numbers which users can click through to see more photos in the category. Each page displays `9` photos.

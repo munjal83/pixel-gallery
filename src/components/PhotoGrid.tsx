@@ -23,7 +23,7 @@ function PhotoGrid(props) {
   const [data, setData] = useState({ data: [] });
   const [offset, setOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const perPage = 12;
+  const perPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
   const [galleryData, setGalleryData] = useState();
   const [open, setOpen] = useState(false);
